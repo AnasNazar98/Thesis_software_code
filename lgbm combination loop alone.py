@@ -104,7 +104,6 @@ for source in time_of_day_order:
         
 
        
-        import numpy as np
 
         np.random.seed(SEED)
         shuffled_ids = np.random.permutation(participant_id)  
@@ -432,3 +431,4 @@ for source in time_of_day_order:
         results_df = pd.DataFrame(results)
         
         results_df.to_excel(output_path.replace("\\", "/"), index=False)
+
