@@ -21,7 +21,6 @@ import time
 
 
 
-#test_ids = np.array([4])
 
 day_number = 6
 
@@ -96,10 +95,9 @@ garmin = (garmin
 garmin_old = garmin.copy()
 
 
-#########
 
 
-###############################################################################
+
 lag_vars = ['Steps'
                 #, "PHYSICAL_NORM", "MENTAL_NORM", "MOTIVATION_NORM", "EFFICACY_NORM", "CONTEXT_NORM"
 
@@ -119,19 +117,15 @@ garmin[['Morning', 'Noon', 'Afternoon', 'Evening']] = garmin[['Morning', 'Noon',
 
     
 
-#########
 all_participant_ids = garmin['participant_id'].unique()
 
 for test_pid in all_participant_ids:
-    # Use current participant as test
     test_ids = np.array([test_pid])
     
-    # Use all others as train
     train_ids = all_participant_ids[all_participant_ids != test_pid]
 
     
     
-    ###############################################################################
     # Yeo-Johnson 
     
     from feature_engine.transformation import YeoJohnsonTransformer
@@ -161,7 +155,6 @@ for test_pid in all_participant_ids:
     
     def make_lag(df):
         lf = LagFeatures(periods=lag_range 
-                         #list(range(1, length+1))
                          , variables=lag_vars
                          , missing_values='ignore')
         return lf.fit_transform(df)
@@ -297,7 +290,6 @@ for test_pid in all_participant_ids:
 
     
     
-    # Run evaluations
     #evaluate(y_train_inv, y_pred_train_inv, name="Train")
     evaluate(y_test_inv, y_pred_test_inv, name="Test")
     
@@ -346,8 +338,7 @@ for test_pid in all_participant_ids:
     final_results.to_excel(output_path, index=False)
 
 
-    #participant_success['test_pid'] = test_pid  # Optional, for tracking
-    #output_path = r"C:\Users\anasn\Desktop\E\Semester 4\Thesis\R code\xgboost timeseries\prediction plots xgboost\participant_success_loocv.xlsx"
-    #participant_success.to_excel(output_path.replace("\\", "/"), index=False)
+
     
+
     
